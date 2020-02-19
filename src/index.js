@@ -1,12 +1,25 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import React, { useState } from "react";
+import ReactDOM from "react-dom";
+import DummyContent from "./DummyContent";
+import ScrollContainer from "./ScrollContainer";
+import Buttons from "./Buttons";
+import "./index.css";
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const App = () => {
+    const [content, set] = useState(2);
+    const scrollIntertia = 50;
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+    return (
+        <>
+            <Buttons
+                addContent={() => set(content + 1)}
+                deleteContent={() => set(content < 1 ? content - 1 : 1)}
+            />
+            <ScrollContainer scrollIntertia={scrollIntertia}>
+                <DummyContent content={content} />
+            </ScrollContainer>
+        </>
+    );
+};
+
+ReactDOM.render(<App />, document.getElementById("root"));
